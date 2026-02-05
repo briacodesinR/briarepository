@@ -24,5 +24,5 @@ subset(dataframe.zdf [26,])
 # Subset the zdf dataframe to only include the values in the column zsquared in the 180th row.
 dataframe.zdf$zsquared[180]
 
-
-                       
+# Question 5: Loading TipsR file
+tips <- read.csv("TipsR.csv", header=TRUE, na.strings=".")
