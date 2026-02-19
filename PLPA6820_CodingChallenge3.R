@@ -4,8 +4,7 @@ Mycotoxin
 cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
 
-# create a boxplot of DON by Treatment so that the plot looks like the image below
-
+# Question 1
 Plot_1 <- ggplot(Mycotoxin, aes(x = Treatment, y = DON, color = Cultivar, fill = Cultivar)) +
   geom_boxplot() +
   geom_point(position=position_jitterdodge(dodge.width = 0.6), color = "#009E73") + # coloring points, setting jitter and jitter width
@@ -15,11 +14,11 @@ Plot_1 <- ggplot(Mycotoxin, aes(x = Treatment, y = DON, color = Cultivar, fill =
   theme_classic() + # classic theme
   facet_wrap(~Cultivar) # faceted by Cultivar
 
-# Change the factor order level so that the treatment “NTC” is first, followed by “Fg”, “Fg + 37”, “Fg + 40”, and “Fg + 70".
+# Question 2
 Mycotoxin$Treatment<- as.factor(Mycotoxin$Treatment)
 Mycotoxin$Treatment<- factor(Mycotoxin$Treatment, levels = c("NTC", "Fg", "Fg + 37", "Fg + 40", "Fg + 70"))
 
-#  Change the y-variable to plot X15ADON and MassperSeed_mg. The y-axis label should now be “15ADON” and “Seed Mass (mg)”. Save plots made in questions 1 and 3 into three separate R objects.
+# Question 3
 Plot_2 <- ggplot(Mycotoxin, aes(x = Treatment, y = X15ADON, color = Cultivar, fill = Cultivar)) +
   geom_boxplot() +
   geom_point(position=position_jitterdodge(dodge.width = 0.6), color = "#009E73") + # coloring points, setting jitter and jitter width
@@ -48,6 +47,35 @@ combined_plot <- ggarrange(
   labels = "auto",
   common.legend = TRUE #common.legend gives all the plots one legend when their keys contain the same items.
   )
-  
+
+combined_plot
 
 # Question 5
+#adding t-test to the plots and 
+Plot_1t <- Plot_1 +
+  geom_pwc(aes(group = Treatment), method = "t_test", label = "{p.adj.format}{p.adj.signif}")
+
+Plot_2t <- Plot_2 +
+  geom_pwc(aes(group = Treatment), method = "t_test", label = "{p.adj.format}{p.adj.signif}")
+
+Plot_3t <- Plot_3 +
+  geom_pwc(aes(group = Treatment), method = "t_test", label = "{p.adj.format}{p.adj.signif}")
+
+combined_plot_t <- ggarrange( # rearranging the plots as one
+  Plot_1t,
+  Plot_2t,
+  Plot_3t,
+  ncol = 3,
+  nrow=1,
+  labels = "auto",
+  common.legend = TRUE #common.legend gives all the plots one legend when their keys contain the same items.
+)
+
+combined_plot_t
+
+
+
+
+
+
+
