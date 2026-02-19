@@ -1,0 +1,31 @@
+---
+title: "PLPA6820_CodingChallenge4"
+author: "Bria Smith"
+date: "2026-02-19"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1: Explain the following:
+
+### - YAML Header - gives information on the file title, author, data, and output.My YAML header has my name, shows that I created my R markdown file today, and that it will render as a word document.
+
+### - Literate programming - allows individuals to understand the purpose of your code and different steps by combining the programming language with daily language. 
+
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
