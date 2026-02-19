@@ -16,7 +16,7 @@ Plot_1 <- ggplot(Mycotoxin, aes(x = Treatment, y = DON, color = Cultivar, fill =
 
 # Question 2
 Mycotoxin$Treatment<- as.factor(Mycotoxin$Treatment)
-Mycotoxin$Treatment<- factor(Mycotoxin$Treatment, levels = c("NTC", "Fg", "Fg + 37", "Fg + 40", "Fg + 70"))
+Mycotoxin$Treatment<- factor(Mycotoxin$Treatment, levels = c("NTC", "Fg", "Fg + 37", "Fg + 40", "Fg + 70")) # moving the x-labels around
 
 # Question 3
 Plot_2 <- ggplot(Mycotoxin, aes(x = Treatment, y = X15ADON, color = Cultivar, fill = Cultivar)) +
@@ -38,20 +38,20 @@ Plot_3 <- ggplot(Mycotoxin, aes(x = Treatment, y = MassperSeed_mg, color = Culti
   facet_wrap(~Cultivar) # faceted by Cultivar
 
 # Question 4
-combined_plot <- ggarrange(
+combined_plot <- ggarrange( # combining the plots
   Plot_1,
   Plot_2,
   Plot_3,
   ncol = 3,
   nrow=1,
-  labels = "auto",
-  common.legend = TRUE #common.legend gives all the plots one legend when their keys contain the same items.
+  labels = "auto", # labeling the subplots as a, b, and c
+  common.legend = TRUE # RESPONSE TO QUESTION 4: common.legend gives all the plots one legend when their keys contain the same items.
   )
 
 combined_plot
 
 # Question 5
-#adding t-test to the plots and 
+#adding t-test to the plots and significance symbols
 Plot_1t <- Plot_1 +
   geom_pwc(aes(group = Treatment), method = "t_test", label = "{p.adj.format}{p.adj.signif}")
 
