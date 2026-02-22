@@ -1,7 +1,9 @@
 [Article from Plant Disease](https://doi.org/10.1094/PDIS-06-21-1253-RE)
 
 [Link to Coding Challenge
-4](https://github.com/briacodesinR/briarepository/blob/6a6ba31bb1146595fbb426197a9a573a6ab2777e/PLPA6820_CodingChallenge4/PLAP6820_CodingChallenge4.md)
+4](https://github.com/briacodesinR/briarepository/blob/095ebd81ea672f4a47d931ebabfbe6c3ee7d13f0/PLPA6820_CodingChallenge4/PLAP6820_CodingChallenge4.Rmd)
+
+[My Repository](https://github.com/briacodesinR/briarepository)
 
 ## Question 2a: Explain the following concepts
 

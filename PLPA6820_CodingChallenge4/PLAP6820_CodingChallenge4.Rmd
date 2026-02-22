@@ -18,7 +18,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 [Article from Plant Disease](https://doi.org/10.1094/PDIS-06-21-1253-RE)
 
-[Link to Coding Challenge 4](https://github.com/briacodesinR/briarepository/blob/6a6ba31bb1146595fbb426197a9a573a6ab2777e/PLPA6820_CodingChallenge4/PLAP6820_CodingChallenge4.md)
 
 [My Repository](https://github.com/briacodesinR/briarepository)
 
