@@ -18,9 +18,24 @@
 ``` r
 library(ggplot2)
 library(ggpubr)
+library(tidyverse)
+```
+
+    ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+    ## ✔ dplyr     1.2.0     ✔ readr     2.2.0
+    ## ✔ forcats   1.0.1     ✔ stringr   1.6.0
+    ## ✔ lubridate 1.9.5     ✔ tibble    3.3.1
+    ## ✔ purrr     1.2.1     ✔ tidyr     1.3.2
+    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ✖ dplyr::filter() masks stats::filter()
+    ## ✖ dplyr::lag()    masks stats::lag()
+    ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+
+``` r
+library(rmarkdown)
 cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
-Mycotoxin <- read.csv("C:/Users/brias/OneDrive/Documents/briarepository/MycotoxinData.csv", na.strings="na")
+Mycotoxin <- read.csv("MycotoxinData.csv", na.strings="na")
 ```
 
 ## Question 2c: Make a separate code chunk for the figures plotting the data
