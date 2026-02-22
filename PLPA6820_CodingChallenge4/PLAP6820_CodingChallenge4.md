@@ -1,22 +1,160 @@
-[Article](https://doi.org/10.1094/PDIS-06-21-1253-RE) \## Question 1:
-Explain the following:
+[Article from Plant Disease](https://doi.org/10.1094/PDIS-06-21-1253-RE)
 
-### - YAML Header - gives information on the file title, author, data, and output.My YAML header has my name, shows that I created my R markdown file today, and that it will render as a word document.
+## Question 1a: Explain the following concepts
 
-### - Literate programming - allows individuals to understand the purpose of your code and different steps by combining the programming language with daily language.
+- YAML Header: gives information on the file title, author, data, and
+  output.My YAML header has my name, shows that I created my R markdown
+  file today, and that it will render as a word document.
+
+- Literate programming: allows individuals to understand the purpose of
+  your code and different steps by combining the programming language
+  with daily language.
+
+## Question 1b: Read the data using a relative file path
 
 ``` r
-data("PLPA6820_CodingChallenge3.R")
+Mycotoxin <- read.csv("/Users/brias/OneDrive/Documents/briarepository/MycotoxinData.csv", na.strings = "na")
 ```
 
-    ## Warning in data("PLPA6820_CodingChallenge3.R"): data set
-    ## 'PLPA6820_CodingChallenge3.R' not found
+## Question 1c: Make a separate code chunk for the figures plotting the data
 
-## Including Plots
+### Plot 1
 
-You can also embed plots, for example:
+``` r
+library(ggplot2)
+library(ggpubr)
+Plot_1 <- ggplot(Mycotoxin, aes(x = Treatment, y = DON, color = Cultivar, fill = Cultivar)) +
+  geom_boxplot() +
+  geom_point(position=position_jitterdodge(dodge.width = 0.6), color = "#009E73") + # coloring points, setting jitter and jitter width
+  scale_fill_manual(values=c("#F0E442", "#0072B2")) + # filling and coloring boxplots
+  xlab("") + # labeling x-axis
+  ylab("DON(ppm)") + # labeling y-axis
+  theme_classic() + # classic theme
+  facet_wrap(~Cultivar) # faceted by Cultivar
+Mycotoxin$Treatment<- as.factor(Mycotoxin$Treatment)
+Mycotoxin$Treatment<- factor(Mycotoxin$Treatment, levels = c("NTC", "Fg", "Fg + 37", "Fg + 40", "Fg + 70")) # moving the x-labels around
+Plot_1t <- Plot_1 +
+  geom_pwc(aes(group = Treatment), method = "t_test", label = "{p.adj.format}{p.adj.signif}")
+plot(Plot_1t)
+```
 
-![](PLAP6820_CodingChallenge4_files/figure-gfm/pressure-1.png)<!-- -->
+    ## Warning: Removed 8 rows containing non-finite outside the scale range
+    ## (`stat_boxplot()`).
 
-Note that the `echo = FALSE` parameter was added to the code chunk to
-prevent printing of the R code that generated the plot.
+    ## Warning: Removed 8 rows containing non-finite outside the scale range
+    ## (`stat_pwc()`).
+
+    ## Warning: Removed 8 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+![](PLAP6820_CodingChallenge4_files/figure-gfm/Plot_1-1.png)<!-- -->
+
+### Plot 2
+
+``` r
+Plot_2 <- ggplot(Mycotoxin, aes(x = Treatment, y = X15ADON, color = Cultivar, fill = Cultivar)) +
+  geom_boxplot() +
+  geom_point(position=position_jitterdodge(dodge.width = 0.6), color = "#009E73") + # coloring points, setting jitter and jitter width
+  scale_fill_manual(values=c("#F0E442", "#0072B2")) + # filling and coloring boxplots
+  xlab("") + # labeling x-axis
+  ylab("15ADON") + # labeling y-axis
+  theme_classic() + # classic theme
+  facet_wrap(~Cultivar) # faceted by Cultivar
+Plot_2t <- Plot_2 +
+  geom_pwc(aes(group = Treatment), method = "t_test", label = "{p.adj.format}{p.adj.signif}")
+plot(Plot_2t)
+```
+
+    ## Warning: Removed 10 rows containing non-finite outside the scale range
+    ## (`stat_boxplot()`).
+
+    ## Warning: Removed 10 rows containing non-finite outside the scale range
+    ## (`stat_pwc()`).
+
+    ## Warning: Removed 10 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+![](PLAP6820_CodingChallenge4_files/figure-gfm/Plot_2-1.png)<!-- -->
+
+### Plot 3
+
+``` r
+Plot_3 <- ggplot(Mycotoxin, aes(x = Treatment, y = MassperSeed_mg, color = Cultivar, fill = Cultivar)) +
+  geom_boxplot() +
+  geom_point(position=position_jitterdodge(dodge.width = 0.6), color = "#009E73") + # coloring points, setting jitter and jitter width
+  scale_fill_manual(values=c("#F0E442", "#0072B2")) + # filling and coloring boxplots
+  xlab("") + # labeling x-axis
+  ylab("Seed Mass (mg)") + # labeling y-axis
+  theme_classic() + # classic theme
+  facet_wrap(~Cultivar) # faceted by Cultivar
+Plot_3t <- Plot_3 +
+  geom_pwc(aes(group = Treatment), method = "t_test", label = "{p.adj.format}{p.adj.signif}")
+plot(Plot_3t)
+```
+
+    ## Warning: Removed 2 rows containing non-finite outside the scale range
+    ## (`stat_boxplot()`).
+
+    ## Warning: Removed 2 rows containing non-finite outside the scale range
+    ## (`stat_pwc()`).
+
+    ## Warning: Removed 2 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+![](PLAP6820_CodingChallenge4_files/figure-gfm/Plot_3-1.png)<!-- -->
+
+### Combined Plots
+
+``` r
+combined_plot <- ggarrange( # combining the plots
+  Plot_1t,
+  Plot_2t,
+  Plot_3t,
+  ncol = 3,
+  nrow=1,
+  labels = "auto", # labeling the subplots as a, b, and c
+  common.legend = TRUE # RESPONSE TO QUESTION 4: common.legend gives all the plots one legend when their keys contain the same items.
+  )
+```
+
+    ## Warning: Removed 8 rows containing non-finite outside the scale range
+    ## (`stat_boxplot()`).
+
+    ## Warning: Removed 8 rows containing non-finite outside the scale range
+    ## (`stat_pwc()`).
+
+    ## Warning: Removed 8 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Warning: Removed 8 rows containing non-finite outside the scale range
+    ## (`stat_boxplot()`).
+
+    ## Warning: Removed 8 rows containing non-finite outside the scale range
+    ## (`stat_pwc()`).
+
+    ## Warning: Removed 8 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Warning: Removed 10 rows containing non-finite outside the scale range
+    ## (`stat_boxplot()`).
+
+    ## Warning: Removed 10 rows containing non-finite outside the scale range
+    ## (`stat_pwc()`).
+
+    ## Warning: Removed 10 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+    ## Warning: Removed 2 rows containing non-finite outside the scale range
+    ## (`stat_boxplot()`).
+
+    ## Warning: Removed 2 rows containing non-finite outside the scale range
+    ## (`stat_pwc()`).
+
+    ## Warning: Removed 2 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+``` r
+plot(combined_plot)
+```
+
+![](PLAP6820_CodingChallenge4_files/figure-gfm/Combined_Plots-1.png)<!-- -->
