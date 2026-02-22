@@ -1,6 +1,9 @@
 [Article from Plant Disease](https://doi.org/10.1094/PDIS-06-21-1253-RE)
 
-## Question 1a: Explain the following concepts
+[Link to Coding Challenge
+4](https://github.com/briacodesinR/briarepository/blob/dac3fd8fb278c1f325965e1455ecc22745911d58/PLPA6820_CodingChallenge4/PLAP6820_CodingChallenge4.md)
+
+## Question 2a: Explain the following concepts
 
 - YAML Header: gives information on the file title, author, data, and
   output.My YAML header has my name, shows that I created my R markdown
@@ -10,19 +13,21 @@
   your code and different steps by combining the programming language
   with daily language.
 
-## Question 1b: Read the data using a relative file path
-
-``` r
-Mycotoxin <- read.csv("/Users/brias/OneDrive/Documents/briarepository/MycotoxinData.csv", na.strings = "na")
-```
-
-## Question 1c: Make a separate code chunk for the figures plotting the data
-
-### Plot 1
+## Question 2b: Read the data using a relative file path
 
 ``` r
 library(ggplot2)
 library(ggpubr)
+cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+Mycotoxin <- read.csv("C:/Users/brias/OneDrive/Documents/briarepository/MycotoxinData.csv", na.strings="na")
+```
+
+## Question 2c: Make a separate code chunk for the figures plotting the data
+
+### Plot 1
+
+``` r
 Plot_1 <- ggplot(Mycotoxin, aes(x = Treatment, y = DON, color = Cultivar, fill = Cultivar)) +
   geom_boxplot() +
   geom_point(position=position_jitterdodge(dodge.width = 0.6), color = "#009E73") + # coloring points, setting jitter and jitter width
@@ -106,7 +111,7 @@ plot(Plot_3t)
 ### Combined Plots
 
 ``` r
-combined_plot <- ggarrange( # combining the plots
+ggarrange( # combining the plots
   Plot_1t,
   Plot_2t,
   Plot_3t,
@@ -152,9 +157,5 @@ combined_plot <- ggarrange( # combining the plots
 
     ## Warning: Removed 2 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
-
-``` r
-plot(combined_plot)
-```
 
 ![](PLAP6820_CodingChallenge4_files/figure-gfm/Combined_Plots-1.png)<!-- -->

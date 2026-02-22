@@ -2,14 +2,15 @@
 title: "PLPA6820_CodingChallenge4"
 author: "Bria Smith"
 date: "2026-02-22"
-output: 
-  word_document:
-  md_document:
-    variant: gfm
+output:
   html_document:
     toc: true
     number_sections: true
-    
+  word_document: null
+  pdf_document:
+    toc: true
+  md_document:
+    variant: gfm
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -17,22 +18,31 @@ knitr::opts_chunk$set(echo = TRUE)
 
 [Article from Plant Disease](https://doi.org/10.1094/PDIS-06-21-1253-RE)
 
-## Question 1a: Explain the following concepts
+[Link to Coding Challenge 4](https://github.com/briacodesinR/briarepository/blob/dac3fd8fb278c1f325965e1455ecc22745911d58/PLPA6820_CodingChallenge4/PLAP6820_CodingChallenge4.md)
+
+
+## Question 2a: Explain the following concepts
 
 - YAML Header: gives information on the file title, author, data, and output.My YAML header has my name, shows that I created my R markdown file today, and that it will render as a word document.
 
 - Literate programming: allows individuals to understand the purpose of your code and different steps by combining the programming language with daily language. 
 
-## Question 1b: Read the data using a relative file path
-```{r Mycotoxin}
-Mycotoxin <- read.csv("MycotoxinData.csv", na.strings = "na")
-
-```
-## Question 1c: Make a separate code chunk for the figures plotting the data
-### Plot 1
-```{r Plot_1}
+## Question 2b: Read the data using a relative file path
+```{r}
 library(ggplot2)
 library(ggpubr)
+library(tidyverse)
+library(rmarkdown)
+cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+Mycotoxin <- read.csv("MycotoxinData.csv", na.strings="na")
+
+```
+
+## Question 2c: Make a separate code chunk for the figures plotting the data
+### Plot 1
+```{r Plot_1}
+
 Plot_1 <- ggplot(Mycotoxin, aes(x = Treatment, y = DON, color = Cultivar, fill = Cultivar)) +
   geom_boxplot() +
   geom_point(position=position_jitterdodge(dodge.width = 0.6), color = "#009E73") + # coloring points, setting jitter and jitter width
@@ -81,7 +91,7 @@ plot(Plot_3t)
 
 ### Combined Plots
 ```{r Combined_Plots}
-combined_plot <- ggarrange( # combining the plots
+ggarrange( # combining the plots
   Plot_1t,
   Plot_2t,
   Plot_3t,
@@ -90,6 +100,6 @@ combined_plot <- ggarrange( # combining the plots
   labels = "auto", # labeling the subplots as a, b, and c
   common.legend = TRUE # RESPONSE TO QUESTION 4: common.legend gives all the plots one legend when their keys contain the same items.
   )
-plot(combined_plot)
+
 ```
 
