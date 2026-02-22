@@ -1,5 +1,4 @@
 # briarepository
 This is a repository for my PLPA6820 course
 
-[Link to Coding Challenge 4](https://github.com/briacodesinR/briarepository/blob/dac3fd8fb278c1f325965e1455ecc22745911d58/PLPA6820_CodingChallenge4/PLAP6820_CodingChallenge4.md)
-
+[Link to Coding Challenge 4](https://github.com/briacodesinR/briarepository/blob/fe7d5aa9300ec4740f12fe09d49e466f6b193088/PLPA6820_CodingChallenge4/PLAP6820_CodingChallenge4.md)
