@@ -1,7 +1,7 @@
 [Article from Plant Disease](https://doi.org/10.1094/PDIS-06-21-1253-RE)
 
 [Link to Coding Challenge
-4](https://github.com/briacodesinR/briarepository/blob/dac3fd8fb278c1f325965e1455ecc22745911d58/PLPA6820_CodingChallenge4/PLAP6820_CodingChallenge4.md)
+4](https://github.com/briacodesinR/briarepository/blob/6a6ba31bb1146595fbb426197a9a573a6ab2777e/PLPA6820_CodingChallenge4/PLAP6820_CodingChallenge4.md)
 
 ## Question 2a: Explain the following concepts
 
@@ -45,14 +45,14 @@ Mycotoxin <- read.csv("MycotoxinData.csv", na.strings="na")
 ``` r
 Plot_1 <- ggplot(Mycotoxin, aes(x = Treatment, y = DON, color = Cultivar, fill = Cultivar)) +
   geom_boxplot() +
-  geom_point(position=position_jitterdodge(dodge.width = 0.6), color = "#009E73") + # coloring points, setting jitter and jitter width
-  scale_fill_manual(values=c("#F0E442", "#0072B2")) + # filling and coloring boxplots
-  xlab("") + # labeling x-axis
-  ylab("DON(ppm)") + # labeling y-axis
-  theme_classic() + # classic theme
-  facet_wrap(~Cultivar) # faceted by Cultivar
+  geom_point(position=position_jitterdodge(dodge.width = 0.6), color = "#009E73") + 
+  scale_fill_manual(values=c("#F0E442", "#0072B2")) +
+  xlab("") + 
+  ylab("DON(ppm)") + 
+  theme_classic() + 
+  facet_wrap(~Cultivar) 
 Mycotoxin$Treatment<- as.factor(Mycotoxin$Treatment)
-Mycotoxin$Treatment<- factor(Mycotoxin$Treatment, levels = c("NTC", "Fg", "Fg + 37", "Fg + 40", "Fg + 70")) # moving the x-labels around
+Mycotoxin$Treatment<- factor(Mycotoxin$Treatment, levels = c("NTC", "Fg", "Fg + 37", "Fg + 40", "Fg + 70")) 
 Plot_1t <- Plot_1 +
   geom_pwc(aes(group = Treatment), method = "t_test", label = "{p.adj.format}{p.adj.signif}")
 plot(Plot_1t)
