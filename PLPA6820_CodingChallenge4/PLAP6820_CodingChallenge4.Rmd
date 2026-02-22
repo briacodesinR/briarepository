@@ -20,6 +20,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 [Link to Coding Challenge 4](https://github.com/briacodesinR/briarepository/blob/6a6ba31bb1146595fbb426197a9a573a6ab2777e/PLPA6820_CodingChallenge4/PLAP6820_CodingChallenge4.md)
 
+[My Repository](https://github.com/briacodesinR/briarepository)
+
 
 ## Question 2a: Explain the following concepts
 
