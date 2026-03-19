@@ -1,0 +1,79 @@
+---
+title: "CodingChallenge5"
+author: "Bria Smith"
+date: "2026-03-19"
+output: 
+  pdf_document:
+  md_document:
+    variation: gfm
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+Download two .csv files from Canvas called DiversityData.csv and Metadata.csv, and read them into R using relative file paths.
+
+```{r}
+Metadata <- read.csv("Metadata.csv", na.strings="na")
+str(Metadata)
+DiversityData <- read.csv("DiversityData.csv", na.strings="na")
+```
+
+## Question 2
+
+Join the two dataframes together by the common column ‘Code’. Name the resulting dataframe alpha.
+
+```{r}
+alpha <- inner_join(Metadata,DiversityData,by="Code")
+str(alpha)
+```
+
+## Question 3
+
+Calculate Pielou’s evenness index: Pielou’s evenness is an ecological parameter calculated by the Shannon diversity index (column Shannon) divided by the log of the richness column.
+
+```{r}
+alpha$log_Richness <- log(alpha$richness)
+alpha_even <- mutate(alpha, Pielou_Evenness = (shannon/(alpha$log_Richness)))
+```
+
+## Question 4
+
+Using tidyverse language of functions and the pipe, use the summarise function and tell me the mean and standard error evenness grouped by crop over time.
+
+```{r}
+alpha_average <- alpha_even %>%
+  group_by(Crop, Time_Point) %>%
+  summarise(even.mean = mean(Pielou_Evenness),
+            n = n(),
+            sd.dev = sd(Pielou_Evenness)) %>%
+  mutate(std.err = sd.dev/sqrt(n))
+```
+## Question 5
+
+Calculate the difference between the soybean column, the soil column, and the difference between the cotton column and the soil column
+
+```{r}
+alpha_average2 <- alpha_average %>%
+  select(Time_Point,Crop,even.mean) %>%
+  pivot_wider(names_from = Crop, values_from = even.mean) %>%
+  mutate(diff.cotton.even = Soil-Cotton) %>%
+  mutate(diff.soybean.even = Soil-Soybean)
+
+```
+
+## Question 6
+
+Connecting it to plots
+```{r}
+select(alpha_average2, Time_Point,diff.cotton.even,diff.soybean.even) %>%
+pivot_longer(c(diff.cotton.even,diff.soybean.even), names_to = "diff") %>%
+ggplot(aes(x=Time_Point, y=value, color = diff)) +
+  geom_line() +
+  xlab("Time(hrs)") +
+  ylab("Difference from soil in Pielou's Evenness")
+```
+
