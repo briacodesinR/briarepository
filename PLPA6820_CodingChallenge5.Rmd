@@ -1,15 +1,16 @@
 ---
-title: "CodingChallenge5"
+title: "Coding Challenge 5"
 author: "Bria Smith"
 date: "2026-03-19"
 output:
-  pdf_document: 
+  pdf_document:
     toc: true
+  word_document: null
   md_document:
-    variation: gfm
+    variant: gfm
   html_document:
-    df_print: paged
-  word_document: default
+    toc: true
+    number_sections: true
 ---
 
 ```{r setup, include=FALSE}
@@ -20,25 +21,26 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Download two .csv files from Canvas called DiversityData.csv and Metadata.csv, and read them into R using relative file paths.
 
-```{r}
+```{r Q1}
+library("dplyr")
+library("tidyr")
+library("ggplot2")
 Metadata <- read.csv("Metadata.csv", na.strings="na")
-str(Metadata)
 DiversityData <- read.csv("DiversityData.csv", na.strings="na")
 ```
-
 ## Question 2
 
 Join the two dataframes together by the common column ‘Code’. Name the resulting dataframe alpha.
 
-```{r}
-alpha <- inner_join(Metadata,DiversityData,by="Code")
+```{r Q2}
+alpha<-inner_join(Metadata,DiversityData,by="Code")
+str(alpha)
 ```
-
 ## Question 3
 
 Calculate Pielou’s evenness index: Pielou’s evenness is an ecological parameter calculated by the Shannon diversity index (column Shannon) divided by the log of the richness column.
 
-```{r}
+```{r Q3}
 alpha$log_Richness <- log(alpha$richness)
 alpha_even <- mutate(alpha, Pielou_Evenness = (shannon/(alpha$log_Richness)))
 ```
@@ -47,7 +49,7 @@ alpha_even <- mutate(alpha, Pielou_Evenness = (shannon/(alpha$log_Richness)))
 
 Using tidyverse language of functions and the pipe, use the summarise function and tell me the mean and standard error evenness grouped by crop over time.
 
-```{r}
+```{r Q4}
 alpha_average <- alpha_even %>%
   group_by(Crop, Time_Point) %>%
   summarise(even.mean = mean(Pielou_Evenness),
@@ -59,7 +61,7 @@ alpha_average <- alpha_even %>%
 
 Calculate the difference between the soybean column, the soil column, and the difference between the cotton column and the soil column
 
-```{r}
+```{r Q5}
 alpha_average2 <- alpha_average %>%
   select(Time_Point,Crop,even.mean) %>%
   pivot_wider(names_from = Crop, values_from = even.mean) %>%
@@ -71,7 +73,7 @@ alpha_average2 <- alpha_average %>%
 ## Question 6
 
 Connecting it to plots
-```{r}
+```{r Q6}
 select(alpha_average2, Time_Point,diff.cotton.even,diff.soybean.even) %>%
 pivot_longer(c(diff.cotton.even,diff.soybean.even), names_to = "diff") %>%
 ggplot(aes(x=Time_Point, y=value, color = diff)) +
