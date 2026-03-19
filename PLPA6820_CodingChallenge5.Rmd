@@ -2,10 +2,14 @@
 title: "CodingChallenge5"
 author: "Bria Smith"
 date: "2026-03-19"
-output: 
-  pdf_document:
+output:
+  pdf_document: 
+    toc: true
   md_document:
     variation: gfm
+  html_document:
+    df_print: paged
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -28,7 +32,6 @@ Join the two dataframes together by the common column ‘Code’. Name the resul
 
 ```{r}
 alpha <- inner_join(Metadata,DiversityData,by="Code")
-str(alpha)
 ```
 
 ## Question 3
