@@ -76,11 +76,12 @@ Modify your loop so that each iteration appends one new row to a dataframe with 
 
 ```{r}
 distance.df <- NULL
-City1 <- Cities$city[1:39]
-City2 <- (Cities$city="Auburn")
 for (i in 1:39){
   result <- data.frame(distance_km(lat[i],lon[i],lat[40],lon[40]))
   distance.df <- rbind.data.frame(distance.df, result)
+  City1 <- data.frame(Cities$city_ascii)
+  City2 <- data.frame(Cities$city)
+  mutate(City1, City2, distance.df)
   
   print(distance.df)
 }
