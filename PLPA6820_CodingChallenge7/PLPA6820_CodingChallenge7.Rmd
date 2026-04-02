@@ -1,0 +1,90 @@
+---
+title: "Coding Challenge 7"
+author: "Bria Smith"
+date: "2026-04-01"
+output:
+  html_document:
+    toc: true
+  word_document: null
+  md_document:
+    variant: gfm
+  pdf_document:
+    toc: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+[My Repository for Coding Challenge 7](https://github.com/briacodesinR/briarepository)
+
+install.packages("lme4")
+install.packages("emmeans")
+install.packages("multcomp")
+install.packages("multcompView")
+
+
+## Question 1
+Read in the data called “PlantEmergence.csv” using a relative file path and load the following libraries. tidyverse, lme4, emmeans, multcomp, and multcompView. Turn the Treatment , DaysAfterPlanting and Rep into factors using the function as.factor
+
+```{r Q1}
+library(lme4)
+library(emmeans)
+library(multcomp)
+library(tidyverse)
+library(multcompView)
+
+PlantEmergence <- read.csv("PlantEmergence.csv", na.string = "na")
+PlantEmergence$Treatment <- as.factor(PlantEmergence$Treatment)
+PlantEmergence$Rep <- as.factor(PlantEmergence$Rep)
+PlantEmergence$DaysAfterPlanting <- as.factor(PlantEmergence$DaysAfterPlanting)
+```
+
+## Question 2
+
+Fit a linear model to predict Emergence using Treatment and
+DaysAfterPlanting along with the interaction. Provide the summary of the linear model and ANOVA results.
+
+Looking at the summary of the linear model, we can see the intercept and plants using Treatment 2 (p<.001) have significant effects on emergence. There is, however, no significant difference across any of the other variables. Looking at the ANOVA, we see that days after planting (p<.001) and treatment (p<.001) have significant effects on plant emergence. There is no significant difference in the interaction of both variables.
+
+```{r Q2}
+
+lm_model <- lm(Emergence~DaysAfterPlanting*Treatment, data = PlantEmergence)
+summary(lm_model)
+anova(lm_model)
+```
+
+## Question 3
+Based on the results of the linear model in question 2, do you need to fit the interaction term? Provide a simplified linear model without the interaction term but still testing both main effects. Provide the summary and ANOVA results. Then, interpret the intercept and the coefficient for Treatment 2.
+
+Based on the results of question 2, we do need to fit the interaction term to better understand the variables outside of the interaction.
+
+Looking at the summary of the linear model, we can see that there is a significant difference in emergence 14, 21, and 28 days after planting. Additionally, we can see that all treatments had a significant effect on emergence except for treatments 4, 7, and 9. In reviewing the ANOVA table, we see that emergence is significantly affected by days since planting (daysafterplanting; p<.001) and treatment received (p<.001).
+
+
+```{r}
+lm_model_q3 <- lm(Emergence~DaysAfterPlanting+Treatment, data = PlantEmergence)
+summary(lm_model_q3)
+anova(lm_model_q3)
+
+```
+
+## Question 4
+Calculate the least square means for Treatment using the emmeans package and perform a Tukey separation with the compact letter display using the cld function.Interpret the results.
+
+From this, we can see that the estimated marginal means of Treatment 2 is lower than all other treatments, although the standard error and df are the same. This contributes to other data demonstrating differences in Treatment 2 when compared to other treatments when considering plant emergence.
+```{r}
+lsmeans <- emmeans(lm_model_q3, ~Treatment)
+result_lsmeans <- cld(lsmeans, alpha = 0.05, reversed = TRUE, details = TRUE)
+lsmeans
+result_lsmeans
+```
+## Question 4
+The provided function lets you dynamically add a linear model plus one factor from that model and plots a bar chart with letters denoting treatment differences. Use this model to generate the plot shown below. Explain the significance of the letters.
+
+```{r}
+
+```
+
+
