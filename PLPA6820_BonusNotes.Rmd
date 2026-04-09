@@ -34,10 +34,5 @@ In the console, write renv::init. This downloads all packages, shows Rstudio and
 I chose to look into the RMoCap package because my lab relies on motion capture as a form of gait and movement analysis. Personally, I have used software such as OpenSim and OpenCap in the past, and may use it in the future. I would like to have a better understanding of this package so I can use it for future studies and data analysis.
 
 [The article on the RMoCap package can be found here](https://doi.org/10.1007/s00530-019-00633-9)
-```{r}
 
-```
-
-
-
-
+- 
