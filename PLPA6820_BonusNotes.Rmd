@@ -1,0 +1,43 @@
+---
+title: "Class Notes 4/2/2026"
+author: "Bria Smith"
+date: "2026-04-02"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+![Additional Notes on Review Material](IMG_8570.jpeg)
+## Using the renv package
+
+renv is a package-management package, in that it stores packages relative to the R project instead of the computer. 
+- Info is written into a lockfile, which is uploaded to git
+- This installs relevant packages and the version used when creating the original project
+
+```{r Part 1: Loading Necessary Packages}
+library (ggplot2)
+library (dplyr)
+library(paletteer)
+
+```
+## Additional renv Notes
+
+In the console, write renv::init. This downloads all packages, shows Rstudio and package versions, and creates a lock file and folder for the lock file.
+
+- The .gitignore is the file stating that we don't want git tracking these packages; we don't want this because it keeps us from repeating installation
+- renv::restore brings all the packages back that are being kept in the lockfile
+
+
+## Optional Material - RMoCap package
+ 
+I chose to look into the RMoCap package because my lab relies on motion capture as a form of gait and movement analysis. Personally, I have used software such as OpenSim and OpenCap in the past, and may use it in the future. I would like to have a better understanding of this package so I can use it for future studies and data analysis.
+
+[The article on the RMoCap package can be found here](https://doi.org/10.1007/s00530-019-00633-9)
+```{r}
+
+```
+
+
+
+
